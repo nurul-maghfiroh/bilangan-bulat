@@ -632,9 +632,9 @@ function render(){
 
           <td>
             ${
-              item.submitted_at
+              item.created_at
               ? new Date(
-                  item.submitted_at
+                  item.created_at
                 ).toLocaleString("id-ID")
               : "—"
             }
@@ -849,9 +849,9 @@ function exportCSV(){
 
     rows.push([
 
-      item.submitted_at
+      item.created_at
       ? new Date(
-          item.submitted_at
+          item.created_at
         ).toLocaleString("id-ID")
       : "",
 
