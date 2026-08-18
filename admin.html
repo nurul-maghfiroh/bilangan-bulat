@@ -1,30 +1,947 @@
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Admin — Math Quest</title>
+
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f6f9ff;color:#26344a;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}.wrap{max-width:1150px;margin:auto;padding:25px 15px 50px}.card{background:#fff;border:1px solid #e5ebf3;border-radius:22px;padding:23px;box-shadow:0 12px 30px rgba(50,75,110,.09)}input,button{font:inherit;padding:11px 13px;border-radius:11px}input{border:1px solid #dce4ef}button{border:0;background:#5b8def;color:white;font-weight:800;cursor:pointer}.secondary{background:white;color:#26344a;border:1px solid #dce4ef}.hidden{display:none}.toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}.stat{background:#f7f9fc;border-radius:14px;padding:14px}.stat b{display:block;font-size:26px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:780px}th,td{padding:10px;border-bottom:1px solid #e5ebf3;text-align:left;font-size:13px}th{background:#f7f9fc}.detail{margin-top:18px;padding:16px;background:#f8fafc;border-radius:16px}.answers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.ans{padding:9px;border-radius:10px;background:#fff;border:1px solid #e5ebf3;font-size:13px}.good{background:#effaf4;border-color:#bce8d0}.bad{background:#fff1f2;border-color:#f2c4c8}@media(max-width:700px){.stats,.answers{grid-template-columns:1fr 1fr}}
-</style></head><body><main class="wrap">
-<div class="card" id="login"><h1>🔐 Admin Math Quest</h1><p>Masukkan PIN admin.</p><input id="pin" type="password" placeholder="PIN"><button onclick="login()">Masuk</button></div>
-<div class="card hidden" id="panel"><div class="toolbar"><div><h1 style="margin:0">📋 Data Peserta</h1><span id="sub" style="color:#718097"></span></div><div><button class="secondary" onclick="exportCSV()">Export CSV</button> <button class="secondary" onclick="loadData()">Refresh</button> <button class="secondary" onclick="logout()">Keluar</button></div></div>
-<div class="stats"><div class="stat"><b id="total">0</b>Peserta</div><div class="stat"><b id="avg">0</b>Rata-rata nilai</div><div class="stat"><b id="best">0</b>Nilai tertinggi</div></div>
-<div class="tablewrap"><table><thead><tr><th>Waktu</th><th>Nama</th><th>Kelas</th><th>Benar</th><th>Salah</th><th>Nilai</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
-<div id="detail"></div></div></main>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:#f6f9ff;
+  color:#26344a;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif
+}
+
+.wrap{
+  max-width:1150px;
+  margin:auto;
+  padding:25px 15px 50px
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e5ebf3;
+  border-radius:22px;
+  padding:23px;
+  box-shadow:0 12px 30px rgba(50,75,110,.09)
+}
+
+input,button{
+  font:inherit;
+  padding:11px 13px;
+  border-radius:11px
+}
+
+input{
+  border:1px solid #dce4ef;
+  width:240px
+}
+
+button{
+  border:0;
+  background:#5b8def;
+  color:white;
+  font-weight:800;
+  cursor:pointer
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed
+}
+
+.secondary{
+  background:white;
+  color:#26344a;
+  border:1px solid #dce4ef
+}
+
+.hidden{
+  display:none!important
+}
+
+.toolbar{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:18px 0
+}
+
+.stat{
+  background:#f7f9fc;
+  border-radius:14px;
+  padding:14px
+}
+
+.stat b{
+  display:block;
+  font-size:26px
+}
+
+.tablewrap{
+  overflow:auto
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:780px
+}
+
+th,td{
+  padding:10px;
+  border-bottom:1px solid #e5ebf3;
+  text-align:left;
+  font-size:13px
+}
+
+th{
+  background:#f7f9fc
+}
+
+.detail{
+  margin-top:18px;
+  padding:16px;
+  background:#f8fafc;
+  border-radius:16px
+}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px
+}
+
+.ans{
+  padding:9px;
+  border-radius:10px;
+  background:#fff;
+  border:1px solid #e5ebf3;
+  font-size:13px
+}
+
+.good{
+  background:#effaf4;
+  border-color:#bce8d0
+}
+
+.bad{
+  background:#fff1f2;
+  border-color:#f2c4c8
+}
+
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:11px;
+  font-size:14px
+}
+
+.error{
+  background:#fff1f2;
+  border:1px solid #f2c4c8;
+  color:#9b3038
+}
+
+@media(max-width:700px){
+  .stats,.answers{
+    grid-template-columns:1fr 1fr
+  }
+
+  input{
+    width:100%
+  }
+}
+</style>
+</head>
+
+<body>
+
+<main class="wrap">
+
+<!-- ================= LOGIN ================= -->
+
+<div class="card" id="login">
+
+  <h1>🔐 Admin Math Quest</h1>
+
+  <p>
+    Masukkan PIN admin untuk melihat data peserta.
+  </p>
+
+  <input
+    id="pin"
+    type="password"
+    placeholder="PIN admin"
+    autocomplete="off"
+  >
+
+  <button
+    id="loginButton"
+    onclick="login()"
+  >
+    Masuk
+  </button>
+
+  <div
+    id="loginMessage"
+    class="hidden"
+  ></div>
+
+</div>
+
+
+<!-- ================= PANEL ADMIN ================= -->
+
+<div class="card hidden" id="panel">
+
+  <div class="toolbar">
+
+    <div>
+      <h1 style="margin:0">
+        📋 Data Peserta
+      </h1>
+
+      <span
+        id="sub"
+        style="color:#718097"
+      ></span>
+    </div>
+
+    <div>
+
+      <button
+        class="secondary"
+        onclick="exportCSV()"
+      >
+        Export CSV
+      </button>
+
+      <button
+        class="secondary"
+        onclick="loadData()"
+      >
+        Refresh
+      </button>
+
+      <button
+        class="secondary"
+        onclick="logout()"
+      >
+        Keluar
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- STATISTIK -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <b id="total">0</b>
+      Peserta
+    </div>
+
+    <div class="stat">
+      <b id="avg">0</b>
+      Rata-rata nilai
+    </div>
+
+    <div class="stat">
+      <b id="best">0</b>
+      Nilai tertinggi
+    </div>
+
+  </div>
+
+
+  <!-- TABEL -->
+
+  <div class="tablewrap">
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Waktu</th>
+          <th>Nama</th>
+          <th>Kelas</th>
+          <th>Benar</th>
+          <th>Salah</th>
+          <th>Nilai</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody id="rows"></tbody>
+
+    </table>
+
+  </div>
+
+
+  <div id="detail"></div>
+
+</div>
+
+</main>
+
+
 <script>
-let records=[],pin="";
-const esc=s=>String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
-async function login(){pin=document.getElementById("pin").value;if(!pin)return alert("Masukkan PIN.");await loadData();if(records.length>=0){document.getElementById("login").classList.add("hidden");document.getElementById("panel").classList.remove("hidden");}}
-async function loadData(){
- const r=await fetch("https://htvgfkohnozoyqidpabl.supabase.co/functions/v1/bright-function",{headers:{"x-admin-pin":pin}});
- if(!r.ok){if(r.status===401)alert("PIN admin salah.");else alert("Gagal mengambil data.");return;}
- records=await r.json();render();
+
+/* =====================================================
+   PENTING:
+   INI URL EDGE FUNCTION KAMU
+   NAMA FUNCTION = admin
+===================================================== */
+
+const EDGE_FUNCTION_URL =
+"https://htvgfkohnozoyqidpabl.supabase.co/functions/v1/admin";
+
+
+let records = [];
+let pin = "";
+
+
+/* =====================================================
+   AMBIL ELEMEN
+===================================================== */
+
+const $ = id =>
+  document.getElementById(id);
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"']/g,
+      m => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[m])
+    );
+
 }
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+async function login(){
+
+  const input = $("pin");
+  const button = $("loginButton");
+
+  const enteredPin =
+    input.value.trim();
+
+  if(!enteredPin){
+
+    showMessage(
+      "Masukkan PIN admin terlebih dahulu.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  pin = enteredPin;
+
+  button.disabled = true;
+  button.textContent = "Memeriksa...";
+
+
+  try{
+
+    const success =
+      await loadData(true);
+
+
+    if(!success){
+
+      pin = "";
+
+      return;
+    }
+
+
+    /* PIN BENAR */
+
+    $("login").classList.add("hidden");
+
+    $("panel").classList.remove("hidden");
+
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Masuk";
+
+  }
+
+}
+
+
+/* =====================================================
+   PESAN ERROR
+===================================================== */
+
+function showMessage(text,type){
+
+  const box =
+    $("loginMessage");
+
+  box.textContent = text;
+
+  box.className =
+    "message " + type;
+
+}
+
+
+/* =====================================================
+   LOAD DATA DARI EDGE FUNCTION
+===================================================== */
+
+async function loadData(isLogin=false){
+
+  try{
+
+    const response =
+      await fetch(
+        EDGE_FUNCTION_URL,
+        {
+          method:"GET",
+
+          headers:{
+            "x-admin-pin":pin
+          },
+
+          cache:"no-store"
+        }
+      );
+
+
+    /* =========================
+       PIN SALAH
+    ========================= */
+
+    if(response.status === 401){
+
+      showMessage(
+        "❌ PIN admin salah.",
+        "error"
+      );
+
+      return false;
+    }
+
+
+    /* =========================
+       ERROR LAIN
+    ========================= */
+
+    if(!response.ok){
+
+      const errorText =
+        await response.text();
+
+      console.error(
+        "Edge Function Error:",
+        response.status,
+        errorText
+      );
+
+      if(isLogin){
+
+        showMessage(
+          "❌ Terjadi kesalahan saat mengambil data.",
+          "error"
+        );
+
+      }else{
+
+        alert(
+          "Gagal mengambil data.\n\nHTTP " +
+          response.status
+        );
+
+      }
+
+      return false;
+    }
+
+
+    /* =========================
+       AMBIL JSON
+    ========================= */
+
+    const data =
+      await response.json();
+
+
+    if(!Array.isArray(data)){
+
+      console.error(
+        "Data bukan array:",
+        data
+      );
+
+      showMessage(
+        "❌ Format data dari Supabase tidak sesuai.",
+        "error"
+      );
+
+      return false;
+    }
+
+
+    records = data;
+
+    render();
+
+    return true;
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showMessage(
+      "❌ Tidak dapat terhubung ke server.",
+      "error"
+    );
+
+    return false;
+
+  }
+
+}
+
+
+/* =====================================================
+   TAMPILKAN DATA
+===================================================== */
+
 function render(){
- document.getElementById("total").textContent=records.length;
- let avg=records.length?records.reduce((s,x)=>s+Number(x.score),0)/records.length:0;
- document.getElementById("avg").textContent=avg.toFixed(2);document.getElementById("best").textContent=records.length?Math.max(...records.map(x=>Number(x.score))).toFixed(2):"0";
- document.getElementById("sub").textContent=records.length+" peserta tersimpan";
- document.getElementById("rows").innerHTML=records.map((x,i)=>`<tr><td>${new Date(x.submitted_at).toLocaleString("id-ID")}</td><td><b>${esc(x.name)}</b></td><td>${esc(x.class_name)}</td><td>${x.correct_count}</td><td>${x.wrong_count}</td><td><b>${x.score}</b></td><td><button onclick="detail(${i})">Lihat</button></td></tr>`).join("");
+
+  $("total").textContent =
+    records.length;
+
+
+  /* RATA-RATA */
+
+  const average =
+    records.length
+      ? records.reduce(
+          (sum,item)=>
+            sum + Number(item.score || 0),
+          0
+        ) / records.length
+      : 0;
+
+
+  $("avg").textContent =
+    average.toFixed(2);
+
+
+  /* NILAI TERTINGGI */
+
+  const best =
+    records.length
+      ? Math.max(
+          ...records.map(
+            item =>
+              Number(item.score || 0)
+          )
+        )
+      : 0;
+
+
+  $("best").textContent =
+    best.toFixed(2);
+
+
+  $("sub").textContent =
+    records.length +
+    " peserta tersimpan";
+
+
+  /* =========================
+     TIDAK ADA DATA
+  ========================= */
+
+  if(records.length === 0){
+
+    $("rows").innerHTML = `
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="text-align:center;padding:25px"
+        >
+
+          Belum ada data peserta.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+  }
+
+
+  /* =========================
+     TABEL DATA
+  ========================= */
+
+  $("rows").innerHTML =
+    records.map(
+      (item,index)=>`
+
+        <tr>
+
+          <td>
+            ${
+              item.submitted_at
+              ? new Date(
+                  item.submitted_at
+                ).toLocaleString("id-ID")
+              : "—"
+            }
+          </td>
+
+          <td>
+            <b>
+              ${esc(item.name)}
+            </b>
+          </td>
+
+          <td>
+            ${esc(item.class_name)}
+          </td>
+
+          <td>
+            ${item.correct_count ?? 0}
+          </td>
+
+          <td>
+            ${item.wrong_count ?? 0}
+          </td>
+
+          <td>
+            <b>
+              ${item.score ?? 0}
+            </b>
+          </td>
+
+          <td>
+
+            <button
+              onclick="showDetail(${index})"
+            >
+              Lihat
+            </button>
+
+          </td>
+
+        </tr>
+
+      `
+    ).join("");
+
 }
-function detail(i){const x=records[i];document.getElementById("detail").innerHTML=`<div class="detail"><div class="toolbar"><h2>${esc(x.name)} · ${esc(x.class_name)}</h2><button class="secondary" onclick="document.getElementById('detail').innerHTML=''">Tutup</button></div><p>Nilai: <b>${x.score}</b> · Benar: ${x.correct_count} · Salah/kosong: ${x.wrong_count}</p><div class="answers">${x.answers.map(a=>`<div class="ans ${a.correct?'good':'bad'}"><b>No. ${a.no}</b> · ${a.correct?'✓ Benar':'✗ Salah/kosong'}<br>Jawaban: ${esc(a.answer||'—')}</div>`).join("")}</div></div>`}
-function exportCSV(){if(!records.length)return;let rows=[["Waktu","Nama","Kelas","Benar","Salah","Nilai"]];records.forEach(x=>rows.push([new Date(x.submitted_at).toLocaleString("id-ID"),x.name,x.class_name,x.correct_count,x.wrong_count,x.score]));let csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");let a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv"}));a.download="math-quest-rekap.csv";a.click()}
-function logout(){location.reload()}
-</script></body></html>
+
+
+/* =====================================================
+   DETAIL JAWABAN
+===================================================== */
+
+function showDetail(index){
+
+  const item =
+    records[index];
+
+  if(!item)return;
+
+
+  let answers = [];
+
+
+  if(Array.isArray(item.answers)){
+
+    answers =
+      item.answers;
+
+  }else{
+
+    try{
+
+      answers =
+        JSON.parse(
+          item.answers || "[]"
+        );
+
+    }catch(e){
+
+      answers = [];
+
+    }
+
+  }
+
+
+  $("detail").innerHTML = `
+
+    <div class="detail">
+
+      <div class="toolbar">
+
+        <h2>
+          ${esc(item.name)}
+          ·
+          ${esc(item.class_name)}
+        </h2>
+
+        <button
+          class="secondary"
+          onclick="$('detail').innerHTML=''"
+        >
+          Tutup
+        </button>
+
+      </div>
+
+      <p>
+
+        Nilai:
+        <b>${item.score ?? 0}</b>
+
+        · Benar:
+        ${item.correct_count ?? 0}
+
+        · Salah/kosong:
+        ${item.wrong_count ?? 0}
+
+      </p>
+
+
+      <div class="answers">
+
+        ${
+          answers.length
+
+          ?
+
+          answers.map(a=>`
+
+            <div
+              class="ans ${
+                a.correct
+                ? "good"
+                : "bad"
+              }"
+            >
+
+              <b>
+                No. ${a.no}
+              </b>
+
+              ·
+
+              ${
+                a.correct
+                ? "✓ Benar"
+                : "✗ Salah/kosong"
+              }
+
+              <br>
+
+              Jawaban:
+              ${
+                a.answer
+                ? esc(a.answer)
+                : "—"
+              }
+
+            </div>
+
+          `).join("")
+
+          :
+
+          `
+            <div class="ans">
+              Tidak ada detail jawaban.
+            </div>
+          `
+        }
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   EXPORT CSV
+===================================================== */
+
+function exportCSV(){
+
+  if(!records.length){
+
+    alert(
+      "Belum ada data untuk diekspor."
+    );
+
+    return;
+  }
+
+
+  const rows = [
+
+    [
+      "Waktu",
+      "Nama",
+      "Kelas",
+      "Benar",
+      "Salah",
+      "Nilai"
+    ]
+
+  ];
+
+
+  records.forEach(item=>{
+
+    rows.push([
+
+      item.submitted_at
+      ? new Date(
+          item.submitted_at
+        ).toLocaleString("id-ID")
+      : "",
+
+      item.name || "",
+
+      item.class_name || "",
+
+      item.correct_count || 0,
+
+      item.wrong_count || 0,
+
+      item.score || 0
+
+    ]);
+
+  });
+
+
+  const csv =
+    rows
+      .map(row=>
+        row
+          .map(value=>
+            `"${String(value)
+              .replace(/"/g,'""')}"`
+          )
+          .join(",")
+      )
+      .join("\n");
+
+
+  const blob =
+    new Blob(
+      ["\ufeff" + csv],
+      {
+        type:"text/csv;charset=utf-8"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "math-quest-rekap.csv";
+
+  a.click();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  pin = "";
+
+  records = [];
+
+  location.reload();
+
+}
+
+
+/* =====================================================
+   ENTER = LOGIN
+===================================================== */
+
+$("pin").addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+      login();
+    }
+
+  }
+);
+
+</script>
+
+</body>
+</html>
