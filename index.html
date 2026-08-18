@@ -1,105 +1,1277 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Math Quest — Bilangan Bulat</title>
+
 <style>
-:root{--bg:#f6f9ff;--card:#fff;--ink:#26344a;--muted:#718097;--blue:#5b8def;--purple:#9877e8;--yellow:#ffd867;--line:#e5ebf3;--green:#4fc58a;--red:#ed7078}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-.wrap{max-width:1100px;margin:auto;padding:22px 15px 55px}.top{display:flex;justify-content:space-between;align-items:center;padding:7px 0 17px}
-.brand{font-weight:900;font-size:20px}.logo{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:13px;background:var(--yellow);margin-right:8px;box-shadow:0 4px 0 #efbe3a}
-.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:27px;box-shadow:0 12px 30px rgba(50,75,110,.09)}
-.hero{display:grid;grid-template-columns:1.45fr .65fr;gap:18px}h1{font-size:clamp(34px,5vw,55px);line-height:1;letter-spacing:-2px;margin:15px 0}h2{margin-top:0}
-.art{display:grid;place-items:center;background:linear-gradient(145deg,#fff8d8,#eaf5ff);font-size:115px;min-height:280px}
-.notice{padding:12px 14px;background:#fff8df;border:1px solid #f1dd91;border-radius:13px;color:#69551a;font-size:13px;line-height:1.5}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}label{display:block;font-size:14px;font-weight:800;margin-bottom:7px}
-input{width:100%;padding:13px;border:1.5px solid #dce4ef;border-radius:13px;font-size:16px;outline:none}input:focus{border-color:var(--blue);box-shadow:0 0 0 4px #eaf1ff}
-.actions{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}
-button{border:0;border-radius:13px;padding:12px 18px;font-weight:850;cursor:pointer}.primary{background:var(--blue);color:#fff;box-shadow:0 4px 0 #3e70ca}.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
-.muted{color:var(--muted)}.hidden{display:none!important}
-.progress{height:10px;background:#edf1f7;border-radius:20px;overflow:hidden;margin:14px 0 20px}.progress div{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));transition:.2s}
-.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.q{padding:17px;border:1px solid var(--line);border-radius:17px}.qnum{font-size:12px;color:var(--muted);font-weight:850}.expr{font-size:23px;font-weight:900;margin:9px 0 12px}.answer{max-width:220px}
-.result{text-align:center}.score{font-size:74px;line-height:1;font-weight:950;color:var(--blue);margin:10px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:20px}.stat{background:#f7f9fc;border-radius:16px;padding:15px}.stat b{display:block;font-size:28px}
-.review{display:grid;grid-template-columns:1fr 1fr;gap:11px}.item{padding:13px;border-radius:14px;border:1px solid var(--line)}.good{background:#effaf4;border-color:#bce8d0}.bad{background:#fff1f2;border-color:#f2c4c8}
-footer{text-align:center;color:#8c98a9;font-size:12px;margin-top:25px}
-@media(max-width:720px){.hero,.grid2,.qgrid,.review,.stats{grid-template-columns:1fr}.art{min-height:180px;font-size:80px}}
+:root{
+  --bg:#f6f9ff;
+  --card:#fff;
+  --ink:#26344a;
+  --muted:#718097;
+  --blue:#5b8def;
+  --purple:#9877e8;
+  --yellow:#ffd867;
+  --line:#e5ebf3;
+  --green:#4fc58a;
+  --red:#ed7078;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+
+.wrap{
+  max-width:1100px;
+  margin:auto;
+  padding:22px 15px 55px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:7px 0 17px;
+  gap:10px;
+}
+
+.brand{
+  font-weight:900;
+  font-size:20px;
+}
+
+.logo{
+  display:inline-grid;
+  place-items:center;
+  width:40px;
+  height:40px;
+  border-radius:13px;
+  background:var(--yellow);
+  margin-right:8px;
+  box-shadow:0 4px 0 #efbe3a;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:27px;
+  box-shadow:0 12px 30px rgba(50,75,110,.09);
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:1.45fr .65fr;
+  gap:18px;
+}
+
+h1{
+  font-size:clamp(34px,5vw,55px);
+  line-height:1;
+  letter-spacing:-2px;
+  margin:15px 0;
+}
+
+h2{
+  margin-top:0;
+}
+
+.art{
+  display:grid;
+  place-items:center;
+  background:linear-gradient(145deg,#fff8d8,#eaf5ff);
+  font-size:115px;
+  min-height:280px;
+}
+
+.notice{
+  padding:12px 14px;
+  background:#fff8df;
+  border:1px solid #f1dd91;
+  border-radius:13px;
+  color:#69551a;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:20px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  border:1.5px solid #dce4ef;
+  border-radius:13px;
+  font-size:16px;
+  outline:none;
+}
+
+input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 4px #eaf1ff;
+}
+
+.actions{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
+}
+
+button{
+  border:0;
+  border-radius:13px;
+  padding:12px 18px;
+  font-weight:850;
+  cursor:pointer;
+}
+
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.primary{
+  background:var(--blue);
+  color:#fff;
+  box-shadow:0 4px 0 #3e70ca;
+}
+
+.secondary{
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--ink);
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.hidden{
+  display:none!important;
+}
+
+.progress{
+  height:10px;
+  background:#edf1f7;
+  border-radius:20px;
+  overflow:hidden;
+  margin:14px 0 20px;
+}
+
+.progress div{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--blue),var(--purple));
+  transition:.2s;
+}
+
+.qgrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.q{
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:17px;
+}
+
+.qnum{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:850;
+}
+
+.expr{
+  font-size:23px;
+  font-weight:900;
+  margin:9px 0 12px;
+}
+
+.answer{
+  max-width:220px;
+}
+
+.result{
+  text-align:center;
+}
+
+.score{
+  font-size:74px;
+  line-height:1;
+  font-weight:950;
+  color:var(--blue);
+  margin:10px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:11px;
+  margin-top:20px;
+}
+
+.stat{
+  background:#f7f9fc;
+  border-radius:16px;
+  padding:15px;
+}
+
+.stat b{
+  display:block;
+  font-size:28px;
+}
+
+.review{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+}
+
+.item{
+  padding:13px;
+  border-radius:14px;
+  border:1px solid var(--line);
+}
+
+.good{
+  background:#effaf4;
+  border-color:#bce8d0;
+}
+
+.bad{
+  background:#fff1f2;
+  border-color:#f2c4c8;
+}
+
+.loading{
+  text-align:center;
+  padding:20px;
+  font-weight:800;
+}
+
+footer{
+  text-align:center;
+  color:#8c98a9;
+  font-size:12px;
+  margin-top:25px;
+}
+
+@media(max-width:720px){
+
+  .hero,
+  .grid2,
+  .qgrid,
+  .review,
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .art{
+    min-height:180px;
+    font-size:80px;
+  }
+
+  .card{
+    padding:20px;
+  }
+
+  .expr{
+    font-size:21px;
+  }
+}
 </style>
 </head>
-<body><main class="wrap">
-<div class="top"><div class="brand"><span class="logo">＋−</span>Math Quest</div><span>Bilangan Bulat</span></div>
+
+<body>
+
+<main class="wrap">
+
+<div class="top">
+  <div class="brand">
+    <span class="logo">＋−</span>
+    Math Quest
+  </div>
+
+  <span>Bilangan Bulat</span>
+</div>
+
+
+<!-- =========================
+     HALAMAN AWAL
+========================= -->
 
 <section id="start" class="hero">
-<div class="card">
-<div class="notice">100 soal penjumlahan & pengurangan • 20 soal perkalian • 120 soal • Nilai 0–100</div>
-<h1>Taklukkan Bilangan Bulat! 🧠✨</h1>
-<p class="muted">Isi identitas, kerjakan dengan teliti, lalu kumpulkan. Setelah submit, kamu dapat melihat nomor yang benar dan salah tanpa melihat pembahasan.</p>
-<div class="grid2">
-<div><label>Nama lengkap</label><input id="name" placeholder="Contoh: Aulia Rahma"></div>
-<div><label>Kelas</label><input id="className" placeholder="Contoh: 9B"></div>
-</div>
-<div class="actions"><span class="muted">Semua jawaban akan disimpan online.</span><button class="primary" onclick="startQuiz()">Mulai 🚀</button></div>
-</div>
-<div class="card art">🧠✨</div>
+
+  <div class="card">
+
+    <div class="notice">
+      100 soal penjumlahan & pengurangan •
+      20 soal perkalian •
+      120 soal •
+      Nilai 0–100
+    </div>
+
+    <h1>
+      Taklukkan Bilangan Bulat! 🧠✨
+    </h1>
+
+    <p class="muted">
+      Isi identitas, kerjakan dengan teliti, lalu kumpulkan.
+      Setelah submit, kamu dapat melihat nomor yang benar dan salah
+      tanpa melihat pembahasan.
+    </p>
+
+    <div class="grid2">
+
+      <div>
+        <label>Nama lengkap</label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Contoh: Aulia Rahma"
+          autocomplete="name"
+        >
+      </div>
+
+      <div>
+        <label>Kelas</label>
+
+        <input
+          id="className"
+          type="text"
+          placeholder="Contoh: 9B"
+        >
+      </div>
+
+    </div>
+
+    <div class="actions">
+
+      <span class="muted">
+        Semua jawaban akan disimpan online.
+      </span>
+
+      <button
+        class="primary"
+        id="startButton"
+        type="button"
+        onclick="startQuiz()"
+      >
+        Mulai 🚀
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="card art">
+    🧠✨
+  </div>
+
 </section>
+
+
+<!-- =========================
+     HALAMAN SOAL
+========================= -->
 
 <section id="quiz" class="card hidden">
-<div class="top"><div><b id="studentLabel"></b><div class="muted">Jawablah dengan angka, misalnya -12.</div></div><b id="countLabel">0/120</b></div>
-<div class="progress"><div id="bar"></div></div>
-<div id="questions" class="qgrid"></div>
-<div class="actions"><button class="secondary" onclick="cancelQuiz()">Batal</button><button class="primary" onclick="submitQuiz()">Kumpulkan Jawaban ✓</button></div>
+
+  <div class="top">
+
+    <div>
+      <b id="studentLabel"></b>
+
+      <div class="muted">
+        Jawablah dengan angka, misalnya -12.
+      </div>
+    </div>
+
+    <b id="countLabel">
+      0/120 terisi
+    </b>
+
+  </div>
+
+
+  <div class="progress">
+    <div id="bar"></div>
+  </div>
+
+
+  <div id="questions" class="qgrid"></div>
+
+
+  <div class="actions">
+
+    <button
+      class="secondary"
+      type="button"
+      onclick="cancelQuiz()"
+    >
+      Batal
+    </button>
+
+    <button
+      class="primary"
+      id="submitButton"
+      type="button"
+      onclick="submitQuiz()"
+    >
+      Kumpulkan Jawaban ✓
+    </button>
+
+  </div>
+
 </section>
+
+
+<!-- =========================
+     HALAMAN HASIL
+========================= -->
 
 <section id="result" class="hidden">
-<div class="card result"><h2 id="resultTitle"></h2><div class="score" id="score">0</div><div class="muted">Nilai dari 120 soal</div>
-<div class="stats"><div class="stat"><b id="correct">0</b>Benar</div><div class="stat"><b id="wrong">0</b>Salah/kosong</div><div class="stat"><b>120</b>Total</div></div></div>
-<div class="card" style="margin-top:18px"><h2>🔎 Cek Jawaban</h2><p class="muted">Hijau = benar. Merah = salah/kosong. Pembetulan/kunci jawaban tidak ditampilkan.</p><div id="review" class="review"></div>
-<div class="actions"><button class="primary" onclick="location.reload()">Selesai</button></div></div>
-</section>
-<footer>Math Quest · belajar matematika dengan menyenangkan 🌱</footer>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-// Isi dari Supabase Dashboard -> Project Settings -> API
-const SUPABASE_URL = "https://htvgfkohnozoyqidpabl.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_T3JEDLKJLTINVhiwmzTgew_De39Eiur";
 
-const QUESTIONS=[{"no": 1, "type": "Penjumlahan/Pengurangan", "a": -14, "op": "+", "b": -72}, {"no": 2, "type": "Penjumlahan/Pengurangan", "a": 58, "op": "-", "b": 15}, {"no": 3, "type": "Penjumlahan/Pengurangan", "a": -41, "op": "+", "b": -44}, {"no": 4, "type": "Penjumlahan/Pengurangan", "a": 54, "op": "-", "b": 30}, {"no": 5, "type": "Penjumlahan/Pengurangan", "a": 71, "op": "+", "b": -21}, {"no": 6, "type": "Penjumlahan/Pengurangan", "a": 70, "op": "-", "b": 57}, {"no": 7, "type": "Penjumlahan/Pengurangan", "a": 27, "op": "+", "b": 84}, {"no": 8, "type": "Penjumlahan/Pengurangan", "a": 97, "op": "-", "b": -11}, {"no": 9, "type": "Penjumlahan/Pengurangan", "a": 59, "op": "+", "b": 99}, {"no": 10, "type": "Penjumlahan/Pengurangan", "a": -40, "op": "-", "b": 44}, {"no": 11, "type": "Penjumlahan/Pengurangan", "a": -29, "op": "+", "b": -36}, {"no": 12, "type": "Penjumlahan/Pengurangan", "a": 60, "op": "-", "b": -73}, {"no": 13, "type": "Penjumlahan/Pengurangan", "a": -97, "op": "+", "b": 80}, {"no": 14, "type": "Penjumlahan/Pengurangan", "a": -31, "op": "-", "b": 14}, {"no": 15, "type": "Penjumlahan/Pengurangan", "a": -71, "op": "+", "b": 82}, {"no": 16, "type": "Penjumlahan/Pengurangan", "a": -74, "op": "-", "b": -57}, {"no": 17, "type": "Penjumlahan/Pengurangan", "a": 11, "op": "+", "b": 93}, {"no": 18, "type": "Penjumlahan/Pengurangan", "a": -46, "op": "-", "b": 82}, {"no": 19, "type": "Penjumlahan/Pengurangan", "a": 55, "op": "+", "b": 20}, {"no": 20, "type": "Penjumlahan/Pengurangan", "a": 65, "op": "-", "b": -45}, {"no": 21, "type": "Penjumlahan/Pengurangan", "a": 57, "op": "+", "b": 6}, {"no": 22, "type": "Penjumlahan/Pengurangan", "a": 22, "op": "-", "b": 72}, {"no": 23, "type": "Penjumlahan/Pengurangan", "a": -98, "op": "+", "b": -41}, {"no": 24, "type": "Penjumlahan/Pengurangan", "a": 69, "op": "-", "b": -45}, {"no": 25, "type": "Penjumlahan/Pengurangan", "a": -92, "op": "+", "b": -41}, {"no": 26, "type": "Penjumlahan/Pengurangan", "a": -52, "op": "-", "b": 6}, {"no": 27, "type": "Penjumlahan/Pengurangan", "a": -93, "op": "+", "b": -15}, {"no": 28, "type": "Penjumlahan/Pengurangan", "a": -41, "op": "-", "b": 19}, {"no": 29, "type": "Penjumlahan/Pengurangan", "a": -23, "op": "+", "b": 33}, {"no": 30, "type": "Penjumlahan/Pengurangan", "a": 85, "op": "-", "b": 36}, {"no": 31, "type": "Penjumlahan/Pengurangan", "a": -91, "op": "+", "b": 51}, {"no": 32, "type": "Penjumlahan/Pengurangan", "a": 60, "op": "-", "b": -75}, {"no": 33, "type": "Penjumlahan/Pengurangan", "a": 73, "op": "+", "b": 89}, {"no": 34, "type": "Penjumlahan/Pengurangan", "a": 97, "op": "-", "b": -40}, {"no": 35, "type": "Penjumlahan/Pengurangan", "a": -69, "op": "+", "b": 22}, {"no": 36, "type": "Penjumlahan/Pengurangan", "a": 19, "op": "-", "b": -42}, {"no": 37, "type": "Penjumlahan/Pengurangan", "a": 79, "op": "+", "b": -48}, {"no": 38, "type": "Penjumlahan/Pengurangan", "a": 96, "op": "-", "b": -2}, {"no": 39, "type": "Penjumlahan/Pengurangan", "a": 56, "op": "+", "b": -91}, {"no": 40, "type": "Penjumlahan/Pengurangan", "a": 62, "op": "-", "b": -95}, {"no": 41, "type": "Penjumlahan/Pengurangan", "a": -7, "op": "+", "b": -83}, {"no": 42, "type": "Penjumlahan/Pengurangan", "a": -82, "op": "-", "b": -34}, {"no": 43, "type": "Penjumlahan/Pengurangan", "a": 42, "op": "+", "b": -12}, {"no": 44, "type": "Penjumlahan/Pengurangan", "a": 14, "op": "-", "b": 36}, {"no": 45, "type": "Penjumlahan/Pengurangan", "a": 91, "op": "+", "b": 2}, {"no": 46, "type": "Penjumlahan/Pengurangan", "a": 89, "op": "-", "b": -93}, {"no": 47, "type": "Penjumlahan/Pengurangan", "a": -80, "op": "+", "b": 31}, {"no": 48, "type": "Penjumlahan/Pengurangan", "a": -39, "op": "-", "b": -9}, {"no": 49, "type": "Penjumlahan/Pengurangan", "a": 28, "op": "+", "b": 59}, {"no": 50, "type": "Penjumlahan/Pengurangan", "a": -51, "op": "-", "b": -95}, {"no": 51, "type": "Penjumlahan/Pengurangan", "a": 89, "op": "+", "b": -71}, {"no": 52, "type": "Penjumlahan/Pengurangan", "a": 11, "op": "-", "b": 65}, {"no": 53, "type": "Penjumlahan/Pengurangan", "a": 82, "op": "+", "b": -62}, {"no": 54, "type": "Penjumlahan/Pengurangan", "a": -28, "op": "-", "b": -40}, {"no": 55, "type": "Penjumlahan/Pengurangan", "a": 35, "op": "+", "b": -1}, {"no": 56, "type": "Penjumlahan/Pengurangan", "a": -75, "op": "-", "b": -22}, {"no": 57, "type": "Penjumlahan/Pengurangan", "a": 14, "op": "+", "b": -31}, {"no": 58, "type": "Penjumlahan/Pengurangan", "a": 55, "op": "-", "b": 41}, {"no": 59, "type": "Penjumlahan/Pengurangan", "a": -46, "op": "+", "b": 84}, {"no": 60, "type": "Penjumlahan/Pengurangan", "a": 21, "op": "-", "b": 28}, {"no": 61, "type": "Penjumlahan/Pengurangan", "a": 18, "op": "+", "b": 25}, {"no": 62, "type": "Penjumlahan/Pengurangan", "a": -16, "op": "-", "b": -57}, {"no": 63, "type": "Penjumlahan/Pengurangan", "a": -66, "op": "+", "b": 59}, {"no": 64, "type": "Penjumlahan/Pengurangan", "a": -52, "op": "-", "b": -19}, {"no": 65, "type": "Penjumlahan/Pengurangan", "a": 85, "op": "+", "b": 45}, {"no": 66, "type": "Penjumlahan/Pengurangan", "a": 75, "op": "-", "b": -18}, {"no": 67, "type": "Penjumlahan/Pengurangan", "a": 55, "op": "+", "b": 5}, {"no": 68, "type": "Penjumlahan/Pengurangan", "a": 85, "op": "-", "b": -71}, {"no": 69, "type": "Penjumlahan/Pengurangan", "a": 55, "op": "+", "b": -66}, {"no": 70, "type": "Penjumlahan/Pengurangan", "a": 3, "op": "-", "b": 79}, {"no": 71, "type": "Penjumlahan/Pengurangan", "a": -41, "op": "+", "b": 71}, {"no": 72, "type": "Penjumlahan/Pengurangan", "a": -59, "op": "-", "b": -16}, {"no": 73, "type": "Penjumlahan/Pengurangan", "a": -95, "op": "+", "b": 66}, {"no": 74, "type": "Penjumlahan/Pengurangan", "a": -1, "op": "-", "b": 81}, {"no": 75, "type": "Penjumlahan/Pengurangan", "a": 15, "op": "+", "b": 21}, {"no": 76, "type": "Penjumlahan/Pengurangan", "a": 10, "op": "-", "b": 0}, {"no": 77, "type": "Penjumlahan/Pengurangan", "a": -94, "op": "+", "b": -26}, {"no": 78, "type": "Penjumlahan/Pengurangan", "a": -53, "op": "-", "b": -42}, {"no": 79, "type": "Penjumlahan/Pengurangan", "a": 84, "op": "+", "b": 31}, {"no": 80, "type": "Penjumlahan/Pengurangan", "a": 83, "op": "-", "b": -76}, {"no": 81, "type": "Penjumlahan/Pengurangan", "a": 13, "op": "+", "b": -21}, {"no": 82, "type": "Penjumlahan/Pengurangan", "a": -28, "op": "-", "b": -20}, {"no": 83, "type": "Penjumlahan/Pengurangan", "a": 79, "op": "+", "b": -2}, {"no": 84, "type": "Penjumlahan/Pengurangan", "a": 72, "op": "-", "b": 93}, {"no": 85, "type": "Penjumlahan/Pengurangan", "a": -4, "op": "+", "b": -7}, {"no": 86, "type": "Penjumlahan/Pengurangan", "a": 98, "op": "-", "b": -49}, {"no": 87, "type": "Penjumlahan/Pengurangan", "a": 35, "op": "+", "b": 79}, {"no": 88, "type": "Penjumlahan/Pengurangan", "a": -56, "op": "-", "b": -38}, {"no": 89, "type": "Penjumlahan/Pengurangan", "a": -81, "op": "+", "b": 21}, {"no": 90, "type": "Penjumlahan/Pengurangan", "a": -3, "op": "-", "b": -46}, {"no": 91, "type": "Penjumlahan/Pengurangan", "a": 60, "op": "+", "b": -44}, {"no": 92, "type": "Penjumlahan/Pengurangan", "a": 92, "op": "-", "b": 15}, {"no": 93, "type": "Penjumlahan/Pengurangan", "a": -70, "op": "+", "b": -92}, {"no": 94, "type": "Penjumlahan/Pengurangan", "a": 24, "op": "-", "b": -6}, {"no": 95, "type": "Penjumlahan/Pengurangan", "a": -52, "op": "+", "b": 84}, {"no": 96, "type": "Penjumlahan/Pengurangan", "a": -29, "op": "-", "b": -93}, {"no": 97, "type": "Penjumlahan/Pengurangan", "a": -21, "op": "+", "b": 31}, {"no": 98, "type": "Penjumlahan/Pengurangan", "a": -97, "op": "-", "b": 60}, {"no": 99, "type": "Penjumlahan/Pengurangan", "a": 28, "op": "+", "b": 77}, {"no": 100, "type": "Penjumlahan/Pengurangan", "a": -39, "op": "-", "b": -6}, {"no": 101, "type": "Perkalian", "a": 2, "op": "×", "b": 3}, {"no": 102, "type": "Perkalian", "a": 4, "op": "×", "b": 2}, {"no": 103, "type": "Perkalian", "a": 5, "op": "×", "b": 3}, {"no": 104, "type": "Perkalian", "a": 6, "op": "×", "b": 2}, {"no": 105, "type": "Perkalian", "a": 7, "op": "×", "b": 2}, {"no": 106, "type": "Perkalian", "a": 8, "op": "×", "b": 3}, {"no": 107, "type": "Perkalian", "a": 9, "op": "×", "b": 2}, {"no": 108, "type": "Perkalian", "a": 10, "op": "×", "b": 4}, {"no": 109, "type": "Perkalian", "a": 3, "op": "×", "b": 5}, {"no": 110, "type": "Perkalian", "a": 4, "op": "×", "b": 5}, {"no": 111, "type": "Perkalian", "a": -2, "op": "×", "b": 3}, {"no": 112, "type": "Perkalian", "a": 2, "op": "×", "b": -4}, {"no": 113, "type": "Perkalian", "a": -3, "op": "×", "b": 2}, {"no": 114, "type": "Perkalian", "a": -4, "op": "×", "b": 2}, {"no": 115, "type": "Perkalian", "a": -5, "op": "×", "b": 2}, {"no": 116, "type": "Perkalian", "a": -2, "op": "×", "b": -3}, {"no": 117, "type": "Perkalian", "a": -3, "op": "×", "b": -2}, {"no": 118, "type": "Perkalian", "a": -4, "op": "×", "b": -2}, {"no": 119, "type": "Perkalian", "a": -5, "op": "×", "b": -2}, {"no": 120, "type": "Perkalian", "a": -6, "op": "×", "b": -1}];
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-let answers=Array(120).fill("");
-let student={name:"",className:""};
-const $=id=>document.getElementById(id);
-function expression(q){return `${q.a<0?"("+q.a+")":q.a} ${q.op} ${q.b<0?"("+q.b+")":q.b} =`;}
+  <div class="card result">
+
+    <h2 id="resultTitle"></h2>
+
+    <div
+      class="score"
+      id="score"
+    >
+      0
+    </div>
+
+    <div class="muted">
+      Nilai dari 120 soal
+    </div>
+
+
+    <div class="stats">
+
+      <div class="stat">
+        <b id="correct">0</b>
+        Benar
+      </div>
+
+      <div class="stat">
+        <b id="wrong">0</b>
+        Salah/kosong
+      </div>
+
+      <div class="stat">
+        <b>120</b>
+        Total
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:18px"
+  >
+
+    <h2>
+      🔎 Cek Jawaban
+    </h2>
+
+    <p class="muted">
+      Hijau = benar.
+      Merah = salah/kosong.
+      Kunci jawaban tidak ditampilkan.
+    </p>
+
+    <div
+      id="review"
+      class="review"
+    ></div>
+
+
+    <div class="actions">
+
+      <button
+        class="primary"
+        type="button"
+        onclick="location.reload()"
+      >
+        Selesai
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+  Math Quest · belajar matematika dengan menyenangkan 🌱
+</footer>
+
+</main>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =====================================================
+   KONFIGURASI SUPABASE
+===================================================== */
+
+const SUPABASE_URL =
+  "https://htvgfkohnozoyqidpabl.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_T3JEDLKJLTINVhiwmzTgew_De39Eiur";
+
+
+const db =
+  supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY
+  );
+
+
+/* =====================================================
+   DATA SOAL
+===================================================== */
+
+const QUESTIONS = [
+
+  /* =========================
+     1–100 PENJUMLAHAN /
+     PENGURANGAN
+  ========================= */
+
+  {no:1,type:"Penjumlahan/Pengurangan",a:-14,op:"+",b:-72},
+  {no:2,type:"Penjumlahan/Pengurangan",a:58,op:"-",b:15},
+  {no:3,type:"Penjumlahan/Pengurangan",a:-41,op:"+",b:-44},
+  {no:4,type:"Penjumlahan/Pengurangan",a:54,op:"-",b:30},
+  {no:5,type:"Penjumlahan/Pengurangan",a:71,op:"+",b:-21},
+  {no:6,type:"Penjumlahan/Pengurangan",a:70,op:"-",b:57},
+  {no:7,type:"Penjumlahan/Pengurangan",a:27,op:"+",b:84},
+  {no:8,type:"Penjumlahan/Pengurangan",a:97,op:"-",b:-11},
+  {no:9,type:"Penjumlahan/Pengurangan",a:59,op:"+",b:99},
+  {no:10,type:"Penjumlahan/Pengurangan",a:-40,op:"-",b:44},
+
+  {no:11,type:"Penjumlahan/Pengurangan",a:-29,op:"+",b:-36},
+  {no:12,type:"Penjumlahan/Pengurangan",a:60,op:"-",b:-73},
+  {no:13,type:"Penjumlahan/Pengurangan",a:-97,op:"+",b:80},
+  {no:14,type:"Penjumlahan/Pengurangan",a:-31,op:"-",b:14},
+  {no:15,type:"Penjumlahan/Pengurangan",a:-71,op:"+",b:82},
+  {no:16,type:"Penjumlahan/Pengurangan",a:-74,op:"-",b:-57},
+  {no:17,type:"Penjumlahan/Pengurangan",a:11,op:"+",b:93},
+  {no:18,type:"Penjumlahan/Pengurangan",a:-46,op:"-",b:82},
+  {no:19,type:"Penjumlahan/Pengurangan",a:55,op:"+",b:20},
+  {no:20,type:"Penjumlahan/Pengurangan",a:65,op:"-",b:-45},
+
+  {no:21,type:"Penjumlahan/Pengurangan",a:57,op:"+",b:6},
+  {no:22,type:"Penjumlahan/Pengurangan",a:22,op:"-",b:72},
+  {no:23,type:"Penjumlahan/Pengurangan",a:-98,op:"+",b:-41},
+  {no:24,type:"Penjumlahan/Pengurangan",a:69,op:"-",b:-45},
+  {no:25,type:"Penjumlahan/Pengurangan",a:-92,op:"+",b:-41},
+  {no:26,type:"Penjumlahan/Pengurangan",a:-52,op:"-",b:6},
+  {no:27,type:"Penjumlahan/Pengurangan",a:-93,op:"+",b:-15},
+  {no:28,type:"Penjumlahan/Pengurangan",a:-41,op:"-",b:19},
+  {no:29,type:"Penjumlahan/Pengurangan",a:-23,op:"+",b:33},
+  {no:30,type:"Penjumlahan/Pengurangan",a:85,op:"-",b:36},
+
+  {no:31,type:"Penjumlahan/Pengurangan",a:-91,op:"+",b:51},
+  {no:32,type:"Penjumlahan/Pengurangan",a:60,op:"-",b:-75},
+  {no:33,type:"Penjumlahan/Pengurangan",a:73,op:"+",b:89},
+  {no:34,type:"Penjumlahan/Pengurangan",a:97,op:"-",b:-40},
+  {no:35,type:"Penjumlahan/Pengurangan",a:-69,op:"+",b:22},
+  {no:36,type:"Penjumlahan/Pengurangan",a:19,op:"-",b:-42},
+  {no:37,type:"Penjumlahan/Pengurangan",a:79,op:"+",b:-48},
+  {no:38,type:"Penjumlahan/Pengurangan",a:96,op:"-",b:-2},
+  {no:39,type:"Penjumlahan/Pengurangan",a:56,op:"+",b:-91},
+  {no:40,type:"Penjumlahan/Pengurangan",a:62,op:"-",b:-95},
+
+  {no:41,type:"Penjumlahan/Pengurangan",a:-7,op:"+",b:-83},
+  {no:42,type:"Penjumlahan/Pengurangan",a:-82,op:"-",b:-34},
+  {no:43,type:"Penjumlahan/Pengurangan",a:42,op:"+",b:-12},
+  {no:44,type:"Penjumlahan/Pengurangan",a:14,op:"-",b:36},
+  {no:45,type:"Penjumlahan/Pengurangan",a:91,op:"+",b:2},
+  {no:46,type:"Penjumlahan/Pengurangan",a:89,op:"-",b:-93},
+  {no:47,type:"Penjumlahan/Pengurangan",a:-80,op:"+",b:31},
+  {no:48,type:"Penjumlahan/Pengurangan",a:-39,op:"-",b:-9},
+  {no:49,type:"Penjumlahan/Pengurangan",a:28,op:"+",b:59},
+  {no:50,type:"Penjumlahan/Pengurangan",a:-51,op:"-",b:-95},
+
+  {no:51,type:"Penjumlahan/Pengurangan",a:89,op:"+",b:-71},
+  {no:52,type:"Penjumlahan/Pengurangan",a:11,op:"-",b:65},
+  {no:53,type:"Penjumlahan/Pengurangan",a:82,op:"+",b:-62},
+  {no:54,type:"Penjumlahan/Pengurangan",a:-28,op:"-",b:-40},
+  {no:55,type:"Penjumlahan/Pengurangan",a:35,op:"+",b:-1},
+  {no:56,type:"Penjumlahan/Pengurangan",a:-75,op:"-",b:-22},
+  {no:57,type:"Penjumlahan/Pengurangan",a:14,op:"+",b:-31},
+  {no:58,type:"Penjumlahan/Pengurangan",a:55,op:"-",b:41},
+  {no:59,type:"Penjumlahan/Pengurangan",a:-46,op:"+",b:84},
+  {no:60,type:"Penjumlahan/Pengurangan",a:21,op:"-",b:28},
+
+  {no:61,type:"Penjumlahan/Pengurangan",a:18,op:"+",b:25},
+  {no:62,type:"Penjumlahan/Pengurangan",a:-16,op:"-",b:-57},
+  {no:63,type:"Penjumlahan/Pengurangan",a:-66,op:"+",b:59},
+  {no:64,type:"Penjumlahan/Pengurangan",a:-52,op:"-",b:-19},
+  {no:65,type:"Penjumlahan/Pengurangan",a:85,op:"+",b:45},
+  {no:66,type:"Penjumlahan/Pengurangan",a:75,op:"-",b:-18},
+  {no:67,type:"Penjumlahan/Pengurangan",a:55,op:"+",b:5},
+  {no:68,type:"Penjumlahan/Pengurangan",a:85,op:"-",b:-71},
+  {no:69,type:"Penjumlahan/Pengurangan",a:55,op:"+",b:-66},
+  {no:70,type:"Penjumlahan/Pengurangan",a:3,op:"-",b:79},
+
+  {no:71,type:"Penjumlahan/Pengurangan",a:-41,op:"+",b:71},
+  {no:72,type:"Penjumlahan/Pengurangan",a:-59,op:"-",b:-16},
+  {no:73,type:"Penjumlahan/Pengurangan",a:-95,op:"+",b:66},
+  {no:74,type:"Penjumlahan/Pengurangan",a:-1,op:"-",b:81},
+  {no:75,type:"Penjumlahan/Pengurangan",a:15,op:"+",b:21},
+  {no:76,type:"Penjumlahan/Pengurangan",a:10,op:"-",b:0},
+  {no:77,type:"Penjumlahan/Pengurangan",a:-94,op:"+",b:-26},
+  {no:78,type:"Penjumlahan/Pengurangan",a:-53,op:"-",b:-42},
+  {no:79,type:"Penjumlahan/Pengurangan",a:84,op:"+",b:31},
+  {no:80,type:"Penjumlahan/Pengurangan",a:83,op:"-",b:-76},
+
+  {no:81,type:"Penjumlahan/Pengurangan",a:13,op:"+",b:-21},
+  {no:82,type:"Penjumlahan/Pengurangan",a:-28,op:"-",b:-20},
+  {no:83,type:"Penjumlahan/Pengurangan",a:79,op:"+",b:-2},
+  {no:84,type:"Penjumlahan/Pengurangan",a:72,op:"-",b:93},
+  {no:85,type:"Penjumlahan/Pengurangan",a:-4,op:"+",b:-7},
+  {no:86,type:"Penjumlahan/Pengurangan",a:98,op:"-",b:-49},
+  {no:87,type:"Penjumlahan/Pengurangan",a:35,op:"+",b:79},
+  {no:88,type:"Penjumlahan/Pengurangan",a:-56,op:"-",b:-38},
+  {no:89,type:"Penjumlahan/Pengurangan",a:-81,op:"+",b:21},
+  {no:90,type:"Penjumlahan/Pengurangan",a:-3,op:"-",b:-46},
+
+  {no:91,type:"Penjumlahan/Pengurangan",a:60,op:"+",b:-44},
+  {no:92,type:"Penjumlahan/Pengurangan",a:92,op:"-",b:15},
+  {no:93,type:"Penjumlahan/Pengurangan",a:-70,op:"+",b:-92},
+  {no:94,type:"Penjumlahan/Pengurangan",a:24,op:"-",b:-6},
+  {no:95,type:"Penjumlahan/Pengurangan",a:-52,op:"+",b:84},
+  {no:96,type:"Penjumlahan/Pengurangan",a:-29,op:"-",b:-93},
+  {no:97,type:"Penjumlahan/Pengurangan",a:-21,op:"+",b:31},
+  {no:98,type:"Penjumlahan/Pengurangan",a:-97,op:"-",b:60},
+  {no:99,type:"Penjumlahan/Pengurangan",a:28,op:"+",b:77},
+  {no:100,type:"Penjumlahan/Pengurangan",a:-39,op:"-",b:-6},
+
+
+  /* =========================
+     101–120 PERKALIAN
+  ========================= */
+
+  {no:101,type:"Perkalian",a:2,op:"×",b:3},
+  {no:102,type:"Perkalian",a:4,op:"×",b:2},
+  {no:103,type:"Perkalian",a:5,op:"×",b:3},
+  {no:104,type:"Perkalian",a:6,op:"×",b:2},
+  {no:105,type:"Perkalian",a:7,op:"×",b:2},
+  {no:106,type:"Perkalian",a:8,op:"×",b:3},
+  {no:107,type:"Perkalian",a:9,op:"×",b:2},
+  {no:108,type:"Perkalian",a:10,op:"×",b:4},
+  {no:109,type:"Perkalian",a:3,op:"×",b:5},
+  {no:110,type:"Perkalian",a:4,op:"×",b:5},
+
+  {no:111,type:"Perkalian",a:-2,op:"×",b:3},
+  {no:112,type:"Perkalian",a:2,op:"×",b:-4},
+  {no:113,type:"Perkalian",a:-3,op:"×",b:2},
+  {no:114,type:"Perkalian",a:-4,op:"×",b:2},
+  {no:115,type:"Perkalian",a:-5,op:"×",b:2},
+  {no:116,type:"Perkalian",a:-2,op:"×",b:-3},
+  {no:117,type:"Perkalian",a:-3,op:"×",b:-2},
+  {no:118,type:"Perkalian",a:-4,op:"×",b:-2},
+  {no:119,type:"Perkalian",a:-5,op:"×",b:-2},
+  {no:120,type:"Perkalian",a:-6,op:"×",b:-1}
+
+];
+
+
+/* =====================================================
+   VARIABEL
+===================================================== */
+
+let student = {
+  name:"",
+  className:""
+};
+
+
+/* =====================================================
+   HELPER
+===================================================== */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+
+/* =====================================================
+   MEMBUAT TAMPILAN SOAL
+===================================================== */
+
+function expression(q){
+
+  const a =
+    q.a < 0
+      ? "(" + q.a + ")"
+      : q.a;
+
+  const b =
+    q.b < 0
+      ? "(" + q.b + ")"
+      : q.b;
+
+  return `${a} ${q.op} ${b} =`;
+}
+
+
+/* =====================================================
+   MULAI QUIZ
+===================================================== */
+
 function startQuiz(){
- student.name=$("name").value.trim(); student.className=$("className").value.trim();
- if(!student.name||!student.className)return alert("Nama lengkap dan kelas harus diisi.");
- $("studentLabel").textContent=student.name+" · "+student.className;
- $("questions").innerHTML=QUESTIONS.map((q,i)=>`
- <div class="q"><div class="qnum">SOAL ${q.no} · ${q.type}</div>
- <div class="expr">${expression(q)}</div>
- <input class="answer" id="ans-${i}" inputmode="numeric" autocomplete="off" placeholder="Jawaban"></div>`).join("");
- document.querySelectorAll(".answer").forEach((el,i)=>el.addEventListener("input",()=>{answers[i]=el.value.trim();updateProgress();}));
- $("start").classList.add("hidden");$("quiz").classList.remove("hidden");window.scrollTo(0,0);
+
+  const name =
+    $("name").value.trim();
+
+  const className =
+    $("className").value.trim();
+
+
+  if(!name || !className){
+
+    alert(
+      "Nama lengkap dan kelas harus diisi."
+    );
+
+    return;
+  }
+
+
+  student.name = name;
+
+  student.className = className;
+
+
+  $("studentLabel").textContent =
+    student.name + " · " + student.className;
+
+
+  $("questions").innerHTML =
+    QUESTIONS.map((q,i)=>{
+
+      return `
+
+        <div class="q">
+
+          <div class="qnum">
+            SOAL ${q.no} · ${q.type}
+          </div>
+
+          <div class="expr">
+            ${expression(q)}
+          </div>
+
+          <input
+            class="answer"
+            id="ans-${i}"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="Jawaban"
+          >
+
+        </div>
+
+      `;
+
+    }).join("");
+
+
+  document
+    .querySelectorAll(".answer")
+    .forEach(input=>{
+
+      input.addEventListener(
+        "input",
+        updateProgress
+      );
+
+    });
+
+
+  $("start").classList.add("hidden");
+
+  $("quiz").classList.remove("hidden");
+
+  updateProgress();
+
+  window.scrollTo(0,0);
 }
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
 function updateProgress(){
- const n=answers.filter(x=>x!=="").length;$("countLabel").textContent=n+"/120 terisi";$("bar").style.width=(n/120*100)+"%";
+
+  const inputs =
+    document.querySelectorAll(".answer");
+
+
+  let filled = 0;
+
+
+  inputs.forEach(input=>{
+
+    if(input.value.trim() !== ""){
+      filled++;
+    }
+
+  });
+
+
+  $("countLabel").textContent =
+    filled + "/120 terisi";
+
+
+  $("bar").style.width =
+    (filled / 120 * 100) + "%";
 }
-function calculate(q){return q.op==="+"?q.a+q.b:q.op==="-"?q.a-q.b:q.a*q.b;}
-function parseAnswer(v){v=String(v).trim();if(!v)return null;if(!/^-?\d+$/.test(v))return NaN;return Number(v);}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+
+
+/* =====================================================
+   MENGHITUNG JAWABAN BENAR
+===================================================== */
+
+function calculate(q){
+
+  if(q.op === "+"){
+    return q.a + q.b;
+  }
+
+  if(q.op === "-"){
+    return q.a - q.b;
+  }
+
+  if(q.op === "×"){
+    return q.a * q.b;
+  }
+
+  return NaN;
+}
+
+
+/* =====================================================
+   MEMBACA JAWABAN SISWA
+===================================================== */
+
+function parseAnswer(value){
+
+  const text =
+    String(value ?? "").trim();
+
+
+  // Kosong
+  if(text === ""){
+    return null;
+  }
+
+
+  // Hanya menerima bilangan bulat.
+  // Contoh valid:
+  // 5
+  // -5
+  // 0
+  // -100
+
+  const number =
+    Number(text);
+
+
+  if(!Number.isInteger(number)){
+    return NaN;
+  }
+
+
+  return number;
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replace(
+      /[&<>"']/g,
+      function(match){
+
+        return {
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#039;"
+        }[match];
+
+      }
+    );
+}
+
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
 async function submitQuiz(){
- const filled=answers.filter(x=>x!=="").length;
- if(filled<120&&!confirm("Masih ada "+(120-filled)+" soal kosong. Tetap kumpulkan?"))return;
- const details=QUESTIONS.map((q,i)=>{const ok=parseAnswer(answers[i])===calculate(q);return {no:q.no,type:q.type,question:expression(q),answer:answers[i],correct:ok};});
- const correct=details.filter(x=>x.correct).length, score=Math.round(correct/120*10000)/100;
- const payload={name:student.name,class_name:student.className,score,correct_count:correct,wrong_count:120-correct,answers:details};
- const {error}=await db.from("submissions").insert(payload);
- if(error){console.error(error);alert("Data belum tersimpan. Periksa URL/key Supabase dan koneksi internet.\n\n"+error.message);return;}
- $("resultTitle").textContent="Hebat, "+student.name+"! 🎉";$("score").textContent=score;
- $("correct").textContent=correct;$("wrong").textContent=120-correct;
- $("review").innerHTML=details.map(d=>`<div class="item ${d.correct?"good":"bad"}"><b>No. ${d.no} · ${d.correct?"✓ Benar":"✗ Salah/kosong"}</b><br>${d.question}<br><span class="muted">Jawabanmu: <b>${escapeHtml(d.answer||"—")}</b></span></div>`).join("");
- $("quiz").classList.add("hidden");$("result").classList.remove("hidden");window.scrollTo(0,0);
+
+  const submitButton =
+    $("submitButton");
+
+
+  submitButton.disabled = true;
+
+  submitButton.textContent =
+    "Memeriksa jawaban...";
+
+
+  try{
+
+    /* ---------------------------------
+       AMBIL JAWABAN LANGSUNG DARI INPUT
+    --------------------------------- */
+
+    const userAnswers =
+      QUESTIONS.map((q,i)=>{
+
+        const input =
+          document.getElementById(
+            "ans-" + i
+          );
+
+        return input
+          ? input.value.trim()
+          : "";
+
+      });
+
+
+    const filled =
+      userAnswers.filter(
+        answer => answer !== ""
+      ).length;
+
+
+    if(
+      filled < QUESTIONS.length
+    ){
+
+      const confirmed =
+        confirm(
+          "Masih ada " +
+          (QUESTIONS.length - filled) +
+          " soal kosong.\n\n" +
+          "Apakah kamu tetap ingin mengumpulkan jawaban?"
+        );
+
+
+      if(!confirmed){
+
+        submitButton.disabled = false;
+
+        submitButton.textContent =
+          "Kumpulkan Jawaban ✓";
+
+        return;
+      }
+
+    }
+
+
+    /* ---------------------------------
+       PERIKSA JAWABAN
+    --------------------------------- */
+
+    const details =
+      QUESTIONS.map((q,i)=>{
+
+        const rawAnswer =
+          userAnswers[i];
+
+
+        const studentAnswer =
+          parseAnswer(rawAnswer);
+
+
+        const correctAnswer =
+          calculate(q);
+
+
+        const isCorrect =
+          studentAnswer !== null &&
+          !Number.isNaN(studentAnswer) &&
+          studentAnswer === correctAnswer;
+
+
+        return {
+
+          no:q.no,
+
+          type:q.type,
+
+          question:expression(q),
+
+          answer:rawAnswer,
+
+          correct:isCorrect
+
+        };
+
+      });
+
+
+    /* ---------------------------------
+       HITUNG NILAI
+    --------------------------------- */
+
+    const correctCount =
+      details.filter(
+        item => item.correct
+      ).length;
+
+
+    const wrongCount =
+      QUESTIONS.length - correctCount;
+
+
+    const score =
+      Math.round(
+        (correctCount / QUESTIONS.length) *
+        10000
+      ) / 100;
+
+
+    /* ---------------------------------
+       DATA UNTUK SUPABASE
+    --------------------------------- */
+
+    const payload = {
+
+      name:student.name,
+
+      class_name:student.className,
+
+      score:score,
+
+      correct_count:correctCount,
+
+      wrong_count:wrongCount,
+
+      answers:details
+
+    };
+
+
+    console.log(
+      "DATA YANG AKAN DIKIRIM:",
+      payload
+    );
+
+
+    /* ---------------------------------
+       SIMPAN KE SUPABASE
+    --------------------------------- */
+
+    const result =
+      await db
+        .from("submissions")
+        .insert(payload);
+
+
+    if(result.error){
+
+      console.error(
+        "SUPABASE ERROR:",
+        result.error
+      );
+
+
+      throw new Error(
+        "Data tidak dapat disimpan ke Supabase.\n\n" +
+        result.error.message
+      );
+
+    }
+
+
+    /* ---------------------------------
+       TAMPILKAN HASIL
+    --------------------------------- */
+
+    $("resultTitle").textContent =
+      "Hebat, " +
+      student.name +
+      "! 🎉";
+
+
+    $("score").textContent =
+      score;
+
+
+    $("correct").textContent =
+      correctCount;
+
+
+    $("wrong").textContent =
+      wrongCount;
+
+
+    /* ---------------------------------
+       REVIEW
+    --------------------------------- */
+
+    $("review").innerHTML =
+      details.map(item=>{
+
+        return `
+
+          <div class="item ${
+            item.correct
+              ? "good"
+              : "bad"
+          }">
+
+            <b>
+
+              No. ${item.no} ·
+
+              ${
+                item.correct
+                  ? "✓ Benar"
+                  : "✗ Salah/kosong"
+              }
+
+            </b>
+
+            <br>
+
+            ${item.question}
+
+            <br>
+
+            <span class="muted">
+
+              Jawabanmu:
+
+              <b>
+                ${
+                  item.answer
+                    ? escapeHtml(item.answer)
+                    : "—"
+                }
+              </b>
+
+            </span>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+
+    /* ---------------------------------
+       PINDAH KE HALAMAN HASIL
+    --------------------------------- */
+
+    $("quiz").classList.add("hidden");
+
+    $("result").classList.remove("hidden");
+
+    window.scrollTo(0,0);
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    alert(
+      "Terjadi kesalahan saat mengumpulkan jawaban.\n\n" +
+      error.message
+    );
+
+
+  }finally{
+
+    submitButton.disabled = false;
+
+    submitButton.textContent =
+      "Kumpulkan Jawaban ✓";
+
+  }
+
 }
-function cancelQuiz(){if(confirm("Batalkan pengerjaan?"))location.reload();}
+
+
+/* =====================================================
+   BATAL
+===================================================== */
+
+function cancelQuiz(){
+
+  if(
+    confirm(
+      "Batalkan pengerjaan?"
+    )
+  ){
+
+    location.reload();
+
+  }
+
+}
+
 </script>
-</body></html>
+
+</body>
+</html>
