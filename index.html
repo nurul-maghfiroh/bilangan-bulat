@@ -85,7 +85,7 @@ function updateProgress(){
  const n=answers.filter(x=>x!=="").length;$("countLabel").textContent=n+"/120 terisi";$("bar").style.width=(n/120*100)+"%";
 }
 function calculate(q){return q.op==="+"?q.a+q.b:q.op==="-"?q.a-q.b:q.a*q.b;}
-function parseAnswer(v){v=String(v).trim();if(!v)return null;if(!/^-?\\d+$/.test(v))return NaN;return Number(v);}
+function parseAnswer(v){v=String(v).trim();if(!v)return null;if(!/^-?\d+$/.test(v))return NaN;return Number(v);}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 async function submitQuiz(){
  const filled=answers.filter(x=>x!=="").length;
